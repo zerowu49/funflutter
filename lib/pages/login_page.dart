@@ -11,6 +11,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
+  bool _isLoading = false;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -26,6 +27,9 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Container(),
             Hero(
               tag: 'Dicoding Chatting',
               child: Text(
@@ -36,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 24.0),
             TextField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Email',

@@ -9,6 +9,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool _obscureText = true;
+  bool _isLoading = false;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -24,6 +25,9 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Container(),
             Hero(
               tag: 'Dicoding Chatting',
               child: Text(
@@ -39,6 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 8.0),
             TextField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Email',
