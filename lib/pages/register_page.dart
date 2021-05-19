@@ -8,7 +8,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -18,7 +17,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -78,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               onPressed: () {},
             ),
-            FlatButton(
+            TextButton(
               child: Text('Already have an account? Login'),
               onPressed: () => Navigator.pop(context),
             ),

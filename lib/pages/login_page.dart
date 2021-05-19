@@ -10,7 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -20,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -76,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, ChatPage.id),
             ),
-            FlatButton(
+            TextButton(
               child: Text('Does not have an account yet? Register here'),
               onPressed: () => Navigator.pushNamed(context, RegisterPage.id),
             ),
