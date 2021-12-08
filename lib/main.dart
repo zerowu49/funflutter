@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funflutter/ArticleWebView.dart';
 import 'package:funflutter/NewsListPage.dart';
@@ -12,21 +13,69 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'News App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: TextTheme(
+          caption: TextStyle(fontSize: 22.0),
+          body1: TextStyle(fontSize: 22.0),
+        ),
       ),
-      initialRoute: NewsListPage.routeName,
-      routes: {
-        NewsListPage.routeName: (context) => NewsListPage(),
-        ArticleDetailPage.routeName: (context) => ArticleDetailPage(
-              article: ModalRoute.of(context)?.settings.arguments as Article,
+      home: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: ListView(
+              children: [
+                Text(
+                  'Lorem Ipsum',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  'History, Purpose and Usage',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  '“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  'Source: https://loremipsum.io/',
+                  style: Theme.of(context).textTheme.overline,
+                ),
+              ],
             ),
-        ArticleWebView.routeName: (context) => ArticleWebView(
-              url: ModalRoute.of(context)?.settings.arguments as String,
-            ),
-      },
+          ),
+        ),
+      ),
     );
   }
 }
