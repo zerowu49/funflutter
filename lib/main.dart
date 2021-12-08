@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/AnimationPage.dart';
-import 'package:funflutter/CalculatorButton.dart';
+import 'package:funflutter/AnimationPageExt.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,6 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimationPage();
+    return AnimationPageExternal();
   }
 }
