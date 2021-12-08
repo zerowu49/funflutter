@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:funflutter/BuilderPage.dart';
+import 'package:funflutter/SettingPage.dart';
 
 class AdaptivePage extends StatefulWidget {
   @override
@@ -9,21 +9,41 @@ class AdaptivePage extends StatefulWidget {
 }
 
 class _AdaptivePageState extends State<AdaptivePage> {
-  bool _isSelected = true;
-  double _sliderValue = 75;
-
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Cupertino App'),
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.news),
+            title: Text('Feeds'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.settings),
+            title: Text('Settings'),
+          ),
+        ],
       ),
-      child: Center(
-        child: Text(
-          'Home Page',
-          style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle,
-        ),
-      ),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return BuilderPage(
+              text: "Feeds Page",
+            );
+          case 1:
+            return BuilderPage(
+              text: "Search Page",
+            );
+          case 2:
+            return SettingsPage();
+          default:
+            return Center(child: Text('Page not found!'));
+        }
+      },
     );
   }
 }
