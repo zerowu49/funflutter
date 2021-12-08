@@ -10,10 +10,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Calculator',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return CupertinoApp(
+      theme: CupertinoThemeData(
+        primaryColor: CupertinoColors.systemOrange,
       ),
       home: MyHomePage(),
     );
@@ -26,18 +25,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String screenText = '0';
-
-  void pressNumber(int number) {
-    setState(() {
-      if (screenText == '0') {
-        screenText = '$number';
-      } else {
-        screenText = '$screenText$number';
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return AdaptivePage();
