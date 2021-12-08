@@ -12,34 +12,38 @@ class CustomScaffold extends StatelessWidget {
         child: Stack(
           children: [
             body,
-            Card(
-              margin: EdgeInsets.all(0),
-              shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(16.0),
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: Text(
-                      'News App',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _buildShortAppBar(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Card _buildShortAppBar(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(0),
+      shape: BeveledRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(16.0),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Text(
+              'News App',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+        ],
       ),
     );
   }
