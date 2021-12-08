@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funflutter/widgets/custom_scaffold.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleWebView extends StatelessWidget {
@@ -10,12 +11,9 @@ class ArticleWebView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('News App'),
-      ),
+    return CustomScaffold(
       body: WebView(
-        initialUrl: "https://quill.chat/",
+        initialUrl: url,
         // userAgent:
         //     "Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
         javascriptMode: JavascriptMode.unrestricted,
