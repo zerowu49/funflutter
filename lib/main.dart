@@ -25,22 +25,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final double boxSize = 150.0;
   int numTaps = 0;
   int numDoubleTaps = 0;
   int numLongPress = 0;
+
+  final double boxSize = 150.0;
   double posX = 0.0;
   double posY = 0.0;
-
-  void center(BuildContext context) {
-    posX = (MediaQuery.of(context).size.width / 2) - boxSize;
-    posY = (MediaQuery.of(context).size.height / 2) - boxSize * 2;
-
-    setState(() {
-      this.posX = posX;
-      this.posY = posY;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,30 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           Positioned(
-            top: posX,
-            left: posY,
+            top: posY,
+            left: posX,
             child: GestureDetector(
-              // onVerticalDragUpdate: (DragUpdateDetails details) {
-              //   setState(() {
-              //     double delta = details.delta.dy;
-              //     posY += delta;
-              //   });
-              // },
-              // onHorizontalDragUpdate: (DragUpdateDetails details) {
-              //   setState(() {
-              //     double delta = details.delta.dx;
-              //     posX += delta;
-              //   });
-              // },
-              onPanUpdate: (DragUpdateDetails details) {
-                setState(() {
-                  double deltaX = details.delta.dx;
-                  double deltaY = details.delta.dy;
-                  posX += deltaX;
-                  posY += deltaY;
-                });
-              },
-
               onTap: () {
                 setState(() {
                   numTaps++;
@@ -91,6 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onLongPress: () {
                 setState(() {
                   numLongPress++;
+                });
+              },
+              onPanUpdate: (DragUpdateDetails details) {
+                setState(() {
+                  double deltaX = details.delta.dx;
+                  double deltaY = details.delta.dy;
+                  posX += deltaX;
+                  posY += deltaY;
                 });
               },
               child: Container(
@@ -111,5 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void center(BuildContext context) {
+    posX = (MediaQuery.of(context).size.width / 2) - boxSize / 2;
+    posY = (MediaQuery.of(context).size.height / 2) - boxSize / 2 - 30;
+
+    setState(() {
+      this.posX = posX;
+      this.posY = posY;
+    });
   }
 }
