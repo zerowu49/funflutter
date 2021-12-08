@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:funflutter/AdaptivePage.dart';
 import 'package:funflutter/LearningPathPage.dart';
 
 void main() {
@@ -39,6 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return LearningPathPage();
+    return AdaptivePage();
   }
 }
