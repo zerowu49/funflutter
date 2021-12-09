@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:funflutter/ArticleWebView.dart';
-import 'package:funflutter/HomePage.dart';
-import 'package:funflutter/article.dart';
-import 'package:funflutter/ArticleDetailPage.dart';
-import 'package:funflutter/styles.dart';
+import 'package:funflutter/ui/article_web_view.dart';
+import 'package:funflutter/ui/home_page.dart';
+import 'package:funflutter/data/model/article.dart';
+import 'package:funflutter/ui/article_detail_page.dart';
+import 'package:funflutter/common/styles.dart';
 
 void main() {
   runApp(MyApp());

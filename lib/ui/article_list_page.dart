@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/ArticleDetailPage.dart';
-import 'package:funflutter/article.dart';
+import 'package:funflutter/ui/article_detail_page.dart';
+import 'package:funflutter/data/model/article.dart';
 import 'package:funflutter/widgets/platform_widget.dart';
 
 class ArticleListPage extends StatelessWidget {
