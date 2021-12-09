@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/AdaptivePage.dart';
-import 'package:funflutter/LearningPathPage.dart';
+import 'package:funflutter/ModulePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +26,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return AdaptivePage();
+    return MaterialApp(
+      title: 'State Management w/ setState',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: ModulePage(),
+    );
   }
 }
