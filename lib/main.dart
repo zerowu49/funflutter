@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funflutter/ArticleWebView.dart';
-import 'package:funflutter/NewsListPage.dart';
+import 'package:funflutter/HomePage.dart';
 import 'package:funflutter/article.dart';
 import 'package:funflutter/ArticleDetailPage.dart';
 import 'package:funflutter/styles.dart';
@@ -34,10 +34,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: secondaryColor,
+          unselectedItemColor: Colors.grey,
+        ),
       ),
-      initialRoute: NewsListPage.routeName,
+      initialRoute: HomePage.routeName,
       routes: {
-        NewsListPage.routeName: (context) => NewsListPage(),
+        HomePage.routeName: (context) => HomePage(),
         ArticleDetailPage.routeName: (context) => ArticleDetailPage(
               article: ModalRoute.of(context)?.settings.arguments as Article,
             ),
