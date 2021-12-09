@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funflutter/ModulePage.dart';
+import 'package:funflutter/provider/done_module_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,13 +28,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'State Management w/ setState',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (context) => DoneModuleProvider(),
+      child: MaterialApp(
+        title: 'State Management w/ setState',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: ModulePage(),
       ),
-      home: ModulePage(),
     );
   }
 }

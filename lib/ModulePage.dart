@@ -22,8 +22,7 @@ class _ModulePageState extends State<ModulePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      DoneModuleList(doneModuleList: doneModuleList),
+                  builder: (context) => DoneModuleList(),
                 ),
               );
             },
