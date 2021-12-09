@@ -1,40 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/ui/article_detail_page.dart';
+import 'package:funflutter/data/api/api_service.dart';
 import 'package:funflutter/data/model/article.dart';
+import 'package:funflutter/widgets/card_article.dart';
 import 'package:funflutter/widgets/platform_widget.dart';
 
-class ArticleListPage extends StatelessWidget {
+class ArticleListPage extends StatefulWidget {
+  @override
+  _ArticleListPageState createState() => _ArticleListPageState();
+}
+
+class _ArticleListPageState extends State<ArticleListPage> {
+  late Future<ArticlesResult> _article;
+
+  @override
+  void initState() {
+    super.initState();
+    _article = ApiService().topHeadlines();
+  }
+
   Widget _buildList(BuildContext context) {
-    return FutureBuilder<String>(
-      future: DefaultAssetBundle.of(context).loadString('assets/articles.json'),
-      builder: (context, snapshot) {
-        final List<Article> articles = parseArticles(snapshot.data);
-        return ListView.builder(
-          itemCount: articles.length,
-          itemBuilder: (context, index) {
-            var article = articles[index];
-            return Material(
-              child: ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                leading: Hero(
-                  tag: article.urlToImage,
-                  child: Image.network(
-                    article.urlToImage,
-                    width: 100,
-                  ),
-                ),
-                title: Text(article.title),
-                subtitle: Text(article.author),
-                onTap: () {
-                  Navigator.pushNamed(context, ArticleDetailPage.routeName,
-                      arguments: article);
-                },
-              ),
+    return FutureBuilder(
+      future: _article,
+      builder: (context, AsyncSnapshot<ArticlesResult> snapshot) {
+        var state = snapshot.connectionState;
+        if (state != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data?.articles.length,
+              itemBuilder: (context, index) {
+                var article = snapshot.data?.articles[index];
+                return CardArticle(article: article!);
+              },
             );
-          },
-        );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Text('');
+          }
+        }
       },
     );
   }
