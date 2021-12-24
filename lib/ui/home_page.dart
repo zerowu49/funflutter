@@ -1,99 +1,101 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/main.dart';
-import 'package:funflutter/ui/detail_page.dart';
-import 'package:funflutter/utils/notification_helper.dart';
-import 'package:funflutter/widgets/custom_button.dart';
+import 'package:funflutter/utils/background_service.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = "/";
+  final String title;
+
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final NotificationHelper _notificationHelper = NotificationHelper();
+  final BackgroundService _service = BackgroundService();
 
   @override
   void initState() {
     super.initState();
-    _notificationHelper.configureSelectNotificationSubject(
-        context, DetailPage.routeName);
-    _notificationHelper.configureDidReceiveLocalNotificationSubject(
-        context, DetailPage.routeName);
-  }
-
-  @override
-  void dispose() {
-    selectNotificationSubject.close();
-    didReceiveLocalNotificationSubject.close();
-    super.dispose();
+    port.listen((_) async => await _service.someTask());
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Simple Notification'),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: <Widget>[
-                CustomButton(
-                  text: 'Show plain notification with payload',
-                  onPressed: () async {
-                    await _notificationHelper
-                        .showNotification(flutterLocalNotificationsPlugin);
-                  },
-                ),
-                SizedBox(height: 10),
-                CustomButton(
-                  text: 'Show plain notification that has no body with payload',
-                  onPressed: () async {
-                    await _notificationHelper.showNotificationWithNoBody(
-                        flutterLocalNotificationsPlugin);
-                  },
-                ),
-                SizedBox(height: 10),
-                CustomButton(
-                  text: 'Show grouped notifications',
-                  onPressed: () async {
-                    await _notificationHelper.showGroupedNotifications(
-                        flutterLocalNotificationsPlugin);
-                  },
-                ),
-                SizedBox(height: 10),
-                CustomButton(
-                  text:
-                      'Show progress notification - updates every second [Android]',
-                  onPressed: () async {
-                    await _notificationHelper.showProgressNotification(
-                        flutterLocalNotificationsPlugin);
-                  },
-                ),
-                SizedBox(height: 10),
-                CustomButton(
-                  text: 'Show big picture notification [Android]',
-                  onPressed: () async {
-                    await _notificationHelper.showBigPictureNotification(
-                        flutterLocalNotificationsPlugin);
-                  },
-                ),
-                SizedBox(height: 10),
-                CustomButton(
-                  text: 'Show notification with attachment [iOS]',
-                  onPressed: () async {
-                    await _notificationHelper.showNotificationWithAttachment(
-                        flutterLocalNotificationsPlugin);
-                  },
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              child: Text(
+                'Alarm with Delayed (Once)',
+              ),
+              onPressed: () async {
+                print("==oneshot pressed==");
+                await AndroidAlarmManager.oneShot(
+                  Duration(seconds: 5),
+                  1,
+                  BackgroundService.callback,
+                  exact: true,
+                  wakeup: true,
+                );
+                print("==oneshot done==");
+              },
             ),
-          ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text(
+                'Alarm with Date Time (Once)',
+              ),
+              onPressed: () async {
+                print("==oneShotAt pressed==");
+
+                await AndroidAlarmManager.oneShotAt(
+                  DateTime.now().add(Duration(seconds: 5)),
+                  2,
+                  BackgroundService.callback,
+                  exact: true,
+                  wakeup: true,
+                );
+                print("==oneShotAt done==");
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text(
+                'Alarm with Periodic',
+              ),
+              onPressed: () async {
+                print("==periodic pressed==");
+
+                await AndroidAlarmManager.periodic(
+                  Duration(seconds: 3),
+                  3,
+                  BackgroundService.callback,
+                  startAt: DateTime.now(),
+                  exact: true,
+                  wakeup: true,
+                );
+                print("==periodic done==");
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text(
+                'Cancel Alarm by Id',
+              ),
+              onPressed: () async {
+                print("==canceled pressed==");
+
+                await AndroidAlarmManager.cancel(3);
+                print("==canceled done==");
+              },
+            ),
+          ],
         ),
       ),
     );
