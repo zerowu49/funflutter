@@ -37,14 +37,9 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<Widget> _listWidget = [
-    ChangeNotifierProvider<NewsProvider>(
-      create: (_) => NewsProvider(apiService: ApiService()),
-      child: ArticleListPage(),
-    ),
-    ChangeNotifierProvider<SchedulingProvider>(
-      create: (_) => SchedulingProvider(),
-      child: SettingsPage(),
-    ),
+    ArticleListPage(),
+    // BookmarksPage(),
+    SettingsPage(),
   ];
 
   Scaffold _buildAndroid(BuildContext context) {
