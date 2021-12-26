@@ -56,8 +56,8 @@ class ArticleListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformWidget(
       androidBuilder: _buildAndroid,
-      // iosBuilder: _buildIos,
-      iosBuilder: _buildAndroid,
+      iosBuilder: _buildIos,
+      // iosBuilder: _buildAndroid,
     );
   }
 }

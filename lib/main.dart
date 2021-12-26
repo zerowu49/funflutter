@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:funflutter/common/navigation.dart';
 import 'package:funflutter/data/api/api_service.dart';
+import 'package:funflutter/data/db/database_helper.dart';
 import 'package:funflutter/data/preferences/preferences_helper.dart';
+import 'package:funflutter/provider/database_provider.dart';
 import 'package:funflutter/provider/news_provider.dart';
 import 'package:funflutter/provider/preferences_provider.dart';
 import 'package:funflutter/provider/scheduling_provider.dart';
@@ -50,6 +52,9 @@ class MyApp extends StatelessWidget {
               sharedPreferences: SharedPreferences.getInstance(),
             ),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
       ],
       child: Consumer<PreferencesProvider>(

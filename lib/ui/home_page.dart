@@ -2,15 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funflutter/data/api/api_service.dart';
-import 'package:funflutter/provider/news_provider.dart';
-import 'package:funflutter/provider/scheduling_provider.dart';
 import 'package:funflutter/ui/article_detail_page.dart';
 import 'package:funflutter/ui/article_list_page.dart';
+import 'package:funflutter/ui/bookmark_page.dart';
 import 'package:funflutter/utils/notification_helper.dart';
 import 'package:funflutter/widgets/platform_widget.dart';
 import 'package:funflutter/ui/settings_page.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home_page';
@@ -31,6 +28,12 @@ class _HomePageState extends State<HomePage> {
       label: _headlineText,
     ),
     BottomNavigationBarItem(
+      icon: Icon(Platform.isIOS
+          ? CupertinoIcons.bookmark
+          : Icons.collections_bookmark),
+      label: BookmarksPage.bookmarksTitle,
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Platform.isIOS ? CupertinoIcons.settings : Icons.settings),
       label: _settingsText,
     ),
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _listWidget = [
     ArticleListPage(),
-    // BookmarksPage(),
+    BookmarksPage(),
     SettingsPage(),
   ];
 
