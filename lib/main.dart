@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(new MyApp());
 
@@ -25,11 +26,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const String counterNumberPrefs = 'counterNumber';
+
+  void _saveNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(counterNumberPrefs, _counter);
+  }
+
+  void _loadNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = prefs.getInt(counterNumberPrefs) ?? 0;
+    });
+  }
+
+  void _resetNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(counterNumberPrefs);
+    _loadNumber();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNumber();
+  }
+
   int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+      _saveNumber();
     });
   }
 
@@ -48,7 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            OutlinedButton(
+              child: Text('Reset'),
+              onPressed: _resetNumber,
             ),
           ],
         ),
