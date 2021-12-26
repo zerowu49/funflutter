@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funflutter/data/api/api_service.dart';
 import 'package:funflutter/provider/news_provider.dart';
+import 'package:funflutter/provider/scheduling_provider.dart';
+import 'package:funflutter/ui/article_detail_page.dart';
 import 'package:funflutter/ui/article_list_page.dart';
+import 'package:funflutter/utils/notification_helper.dart';
 import 'package:funflutter/widgets/platform_widget.dart';
 import 'package:funflutter/ui/settings_page.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
   int _bottomNavIndex = 0;
   static const String _headlineText = 'Headline';
   static const String _settingsText = 'Settings';
@@ -37,14 +41,14 @@ class _HomePageState extends State<HomePage> {
       create: (_) => NewsProvider(apiService: ApiService()),
       child: ArticleListPage(),
     ),
-    SettingsPage(),
+    ChangeNotifierProvider<SchedulingProvider>(
+      create: (_) => SchedulingProvider(),
+      child: SettingsPage(),
+    ),
   ];
 
   Scaffold _buildAndroid(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('News App'),
-      ),
       body: _listWidget[_bottomNavIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _bottomNavIndex,
@@ -65,6 +69,19 @@ class _HomePageState extends State<HomePage> {
         return _listWidget[index];
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(ArticleDetailPage.routeName);
+  }
+
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
   }
 
   @override

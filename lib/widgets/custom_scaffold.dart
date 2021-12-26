@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -31,7 +32,9 @@ class CustomScaffold extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: defaultTargetPlatform == TargetPlatform.iOS
+                ? Icon(Icons.arrow_back_ios)
+                : Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },

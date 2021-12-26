@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funflutter/common/navigation.dart';
 import 'package:funflutter/data/model/article.dart';
 import 'package:funflutter/ui/article_detail_page.dart';
 
@@ -24,11 +25,8 @@ class CardArticle extends StatelessWidget {
           article.title,
         ),
         subtitle: Text(article.author),
-        onTap: () => Navigator.pushNamed(
-          context,
-          ArticleDetailPage.routeName,
-          arguments: article,
-        ),
+        onTap: () =>
+            Navigation.intentWithData(ArticleDetailPage.routeName, article),
       ),
     );
   }
