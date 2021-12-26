@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:funflutter/db_provider.dart';
 import 'package:funflutter/note.dart';
+import 'package:provider/provider.dart';
 
 class NoteAddUpdatePage extends StatefulWidget {
   final Note? note;
@@ -29,7 +31,9 @@ class _NoteAddUpdatePageState extends State<NoteAddUpdatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: _isUpdate ? Text("Update Existing Note") : Text("Add New Note"),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -52,6 +56,23 @@ class _NoteAddUpdatePageState extends State<NoteAddUpdatePage> {
                 child: Text('Simpan'),
                 onPressed: () async {
                   // TODO : Tambahkan kode untuk menyimpan atau mengedit note
+                  if (!_isUpdate) {
+                    final note = Note(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                    );
+                    Provider.of<DbProvider>(context, listen: false)
+                        .addNote(note);
+                  } else {
+                    final note = Note(
+                      id: widget.note!.id,
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                    );
+                    Provider.of<DbProvider>(context, listen: false)
+                        .updateNote(note);
+                  }
+                  Navigator.pop(context);
                 },
               ),
             )
