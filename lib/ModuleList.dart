@@ -63,6 +63,7 @@ class ModuleTile extends StatelessWidget {
       trailing: isDone
           ? Icon(Icons.done)
           : ElevatedButton(
+              key: Key('$moduleName'),
               child: Text('Done'),
               onPressed: onClick,
             ),

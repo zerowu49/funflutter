@@ -17,6 +17,7 @@ class _ModulePageState extends State<ModulePage> {
         title: Text('Memulai Pemrograman Dengan Dart'),
         actions: <Widget>[
           IconButton(
+            key: Key('done_page_button'),
             icon: Icon(Icons.done),
             onPressed: () {
               Navigator.push(
