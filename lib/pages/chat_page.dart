@@ -1,8 +1,10 @@
 import 'package:dicoding_chatting/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
   static const String id = 'chat_page';
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,10 @@ class ChatPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.close),
             tooltip: 'Logout',
-            onPressed: () =>
-                Navigator.pushReplacementNamed(context, LoginPage.id),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pushReplacementNamed(context, LoginPage.id);
+            },
           )
         ],
       ),
